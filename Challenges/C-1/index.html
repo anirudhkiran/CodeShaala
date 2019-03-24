@@ -1,137 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 
-    body {
-      padding: 0;
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+    <style>
+
+    body{
+        margin: 0;
+        padding: 0px;
+        
+    }
+    h1{
+        margin: 0;
+        background-color: chartreuse;
+        text-align: center;
+        padding: 10px 10px 10px 10px;
+        font-family: Arial, Helvetica, sans-serif;
     }
 
-    #title {
-      text-align: center;
-      background: tomato;
-      color: #fff;
-      padding: 15px;
-      margin: 0;
+    
+    #list-container {
+        display: flex;
     }
 
-    #product-container {
-      display: flex;
+    .product-list {
+       text-align: center;
+       margin: 10px 0px 0px 175px;
+       border: 1px solid #000000;
+       border-radius: 5px;
+       text-align: center;
+       padding: 10px 10px 10px 10px;
+       font-family: Arial, Helvetica, sans-serif;
     }
 
-    .product {
-      background-color: #999;
-      margin: 10px;
-      border: 1px solid #999;
-      padding: 10px;
-      width: 150px;
+    .remove-button{
+        border: 1px solid black; 
+        border-radius: 1px; 
+        color:white;
+        background-color: black; 
+        margin-left: 5px;
+        margin-bottom: 5px;
+        padding: 2px 5px 2px 5px;
     }
 
-    .product h2 {
-      color: #fff
+    #cart{
+
+        width: 200px;
+        margin-left: 555px;
+        border: 1px solid black;
+        text-align: center;
+        margin-top: 20px;
+        background-color: #e5e5e5;
+        font-family: Arial, Helvetica, sans-serif;
+        border-radius: 4px;
+        
     }
 
-    .product p {
-      color: #fff
+    .buy-button{
+        border: 1px solid black; 
+        border-radius: 1px; 
+        color:white; 
+        background-color: black; 
+        padding: 10px 10px 10px 10px;
     }
+    </style>
 
-    .product button {
-      border: 0;
-      padding: 10px 15px;
-      border-radius: 2px;
-      background-color: tomato;
-      color: #fff;
-    }
-
-    #my-cart {
-      width: 200px;
-      margin: auto;
-      background-color: #f1f2f3;
-      padding: 10px 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .cart-item {
-      padding: 10px;
-    }
-
-    .cart-item button {
-      background-color: transparent;
-      border: 1px solid tomato;
-      color: tomato;
-      margin-left: 10px;
-    }
-
-  </style>
 </head>
 <body>
-  <h1 id="title">Green Farm</h1>
-  
-  <div id="product-container">
-    <div class="product">
-      <h2>Tomato</h2>
-      <p>Fresh tomatoes everyday</p>
-      <button onclick="addToCart('Tomato')">Buy</button>
+
+    <h1>Green Farm</h1>
+
+    <div id="list-container">
+
+        <div class="product-list" style="background-color:	#FF6347">
+            <h2>Tomato</h2>
+            <p>Fresh Tomatoes everyday</p>
+            <button class="buy-button" onclick="addItem('Tomato')">Buy</button>           
+        </div>
+
+        <div class="product-list" style="background-color:#DEB887">
+            <h2>Potato</h2>
+            <p>Fresh potatoes everyday</p>
+            <button class="buy-button" onclick="addItem('Potato')">Buy</button>
+        </div>
+
+        <div class="product-list" style="background-color:#3CB371">
+                <h2>Vegetables</h2>
+                <p>Fresh vegetables everyday</p>
+                <button class="buy-button" onclick="addItem('Vegetables')">Buy</button>
+        </div>
+
     </div>
-    <div class="product">
-      <h2>Potato</h2>
-      <p>Fresh potatoes</p>
-      <button onclick="addToCart('Potato')">Buy</button>
+
+    <div id="cart">
+        <h3>My Cart</h3>
+        <div id="cart-items"></div>
+        <p><strong>Total items: </strong><span id="numberOfItems">0</span></p>
     </div>
-  </div>
-  
-  <div id="my-cart">
-    <h3>My Cart</h3>
-    <div id="cart-items">
-    </div>
-    <h4 id="total-items">Total Items : 0</h4>
-  </div>
     
-  
-  <script>
-    /**
-     * 
-     */
-    function addToCart(type){
-      var cart = document.getElementById('cart-items')
-      //parent div
-      var div = document.createElement('div');
-      div.setAttribute('class', 'cart-item')
-      // span
-      var span = document.createElement('span')
-      span.innerText = type;
-      //button
-      var button = document.createElement('button')
-      button.innerHTML = '&times;'
-      button.addEventListener('click',removeFromCart)
-      // button.onclick = removeFromCart
 
-      
-      span.appendChild(button)
-      div.appendChild(span)
-      cart.appendChild(div)
-      calTotalItems()
-    }
-    function removeFromCart(e){
-      e.target.parentNode.parentNode.remove();
-      calTotalItems()
-      
-    }
 
-    function calTotalItems(){
-      var cart = document.getElementById('cart-items')
-      var totalProducts = cart.children.length
 
-      document.getElementById('total-items').innerText = 'Total Items : '+totalProducts
-    }
-  </script>
+<script>
+
+function addItem(product){
+
+    var cart = document.getElementById("cart-items");
+
+    var div = document.createElement("div");
+    var span = document.createElement("span");
+    span.innerText = product;
+
+    var button = document.createElement("button");
+    button.innerHTML = "&times";
+    button.setAttribute('class','remove-button')
+    button.addEventListener('click',removeItem);
+
+
+    span.appendChild(button);
+    div.appendChild(span);
+    cart.appendChild(div);
+    div.setAttribute('class','item-list')
+    totalProducts();
+}
+
+function removeItem(e){
+    console.log(e);
+    e.target.parentNode.parentNode.remove();//target - Get the element that triggered a specific event
+    totalProducts();
+
+}
+
+function totalProducts(){
+    var cart = document.getElementById("cart-items")
+    var number = cart.children.length;
+    document.getElementById("numberOfItems").innerText = number;
+}
+
+</script>
+
+
 </body>
 </html>
